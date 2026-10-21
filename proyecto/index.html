@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSmoke - Monitoreo de Emisiones Vehiculares</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --dark-bg: #121814;
+            --card-bg: #1e2620;
+            --text-light: #e0e0e0;
+            --accent-green: #4caf50;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #18221c;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        nav a:hover {
+            color: var(--accent-green);
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        p {
+            color: #b0bec5;
+        }
+        .btn-medicion {
+            background-color: var(--accent-green);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .btn-medicion:hover {
+            background-color: #388e3c;
+        }
+        .resultado-box {
+            margin-top: 30px;
+            background-color: #121814;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        .valor-pm {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">EcoSmoke</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1>Monitorea. Compara. Mejora el aire.</h1>
+            <p>Sistema portátil de sensores para medir y analizar emisiones vehiculares[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).</p>
+            
+            <button class="btn-medicion" onclick="iniciarMedicion()">+ Nueva Medición</button>
+
+            <div id="resultado" class="resultado-box">
+                <h3>Midiendo emisiones en tiempo real...[span_2](start_span)[span_2](end_span)</h3>
+                <p>PM2.5: <span id="pmValue" class="valor-pm">--</span> µg/m³[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)</p>
+                <p id="estadoAire" style="font-weight: bold; font-size: 18px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function iniciarMedicion() {
+            const cajaResultado = document.getElementById('resultado');
+            const spanPM = document.getElementById('pmValue');
+            const txtEstado = document.getElementById('estadoAire');
+            
+            cajaResultado.style.display = 'block';
+            spanPM.innerText = "Midiendo...";
+            txtEstado.innerText = "";
+
+            setTimeout(() => {
+                const valorAleatorio = Math.floor(Math.random() * (85 - 15 + 1)) + 15;
+                spanPM.innerText = valorAleatorio;
+
+                if (valorAleatorio <= 30) {
+                    spanPM.style.color = "#4caf50";
+                    txtEstado.innerText = "Estado: Bueno (0-30)";
+                    txtEstado.style.color = "#4caf50";
+                } else if (valorAleatorio <= 60) {
+                    spanPM.style.color = "#ffeb3b";
+                    txtEstado.innerText = "Estado: Moderado (31-60)";
+                    txtEstado.style.color = "#ffeb3b";
+                } else {
+                    spanPM.style.color = "#f44336";
+                    txtEstado.innerText = "Estado: Malo (61-100)";
+                    txtEstado.style.color = "#f44336";
+                }
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
